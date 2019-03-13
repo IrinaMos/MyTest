@@ -8,4 +8,3 @@ public class Click {
         }
     }
 }
-C:\Users\irina\IdeaProjects\Software\src\Click.java
