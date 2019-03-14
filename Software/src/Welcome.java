@@ -5,6 +5,7 @@ public class Welcome {
 
                 System.out.print("NewScreen");
                 System.out.print("NewScreen");
+				    System.out.print("NewScreen");
             }
         }
 }
