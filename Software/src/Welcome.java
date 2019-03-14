@@ -4,7 +4,7 @@ public class Welcome {
             public void main(String[] args) {
 
                 System.out.print("NewScreen");
-
+                System.out.print("NewScreen");
             }
         }
 }
