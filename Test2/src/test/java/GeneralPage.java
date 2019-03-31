@@ -35,12 +35,12 @@ public class GeneralPage {
     private static ExtentTest test;
 
     @BeforeClass
-    public static WebDriver beforeMyClass() throws org.xml.sax.SAXException, ParserConfigurationException, SAXException, IOException {
+    public static void beforeMyClass() throws org.xml.sax.SAXException, ParserConfigurationException, SAXException, IOException {
         ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter("C://Users//irina//Desktop//report//extent1.html");
         // attach reporter
         extent = new ExtentReports();
         extent.attachReporter(htmlReporter);
-        test = extent.createTest("Project", "Buyme site");
+        test = extent.createTest("Project", "Maps site");
 
         // add custom system info
         extent.setSystemInfo("Environment", "Test");
@@ -56,23 +56,22 @@ public class GeneralPage {
                 System.setProperty("webdriver.chrome.driver", "C:\\Users\\irina\\Downloads\\chromedriver_win32\\chromedriver.exe");
                 driver = new ChromeDriver();
                 driver.manage().window().maximize();
-                return driver;
+                break;
             case "IE":
                 System.setProperty("webdriver.ie.driver", "C:\\Users\\irina\\Downloads\\IEDriverServer.exe");
                 driver = new InternetExplorerDriver();
                 driver.manage().window().maximize();
-                return driver;
+                break;
             case "Firefox":
                 System.setProperty("webdriver.gecko.driver", "C:\\Users\\irina\\Downloads\\geckodriver.exe");
                 driver = new FirefoxDriver();
                 driver.manage().window().maximize();
-                return driver;
+                break;
         }
-        return null;
     }
 
     public static String getData1 (String keyName) { //using in xml file which contains url data
-        File configXmlFile = new File("C:\\Users\\irina\\Desktop\\miIrina\\Config.xml");
+        File configXmlFile = new File("C:\\Users\\irina\\Desktop\\miIrina\\Config1.xml");
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = null;
         try {
@@ -106,6 +105,7 @@ public class GeneralPage {
             doc.getDocumentElement().normalize();
         }
         assert doc != null;
+        System.out.print(doc.getElementsByTagName(tagName).item(0).getTextContent());
         return doc.getElementsByTagName(tagName).item(0).getTextContent();
 
     }
@@ -114,7 +114,7 @@ public class GeneralPage {
     public void afirstMethod () throws org.xml.sax.SAXException, ParserConfigurationException, SAXException, IOException {
         boolean pageOpened = false;
         try {
-            GeneralPage.beforeMyClass().navigate().to(GeneralPage.getData1("URL"));
+            driver.navigate().to(GeneralPage.getData1("URL"));
             pageOpened = true;
 
         } catch (Exception e) {
@@ -133,6 +133,8 @@ public class GeneralPage {
     public void bsecondMethod () throws  ParserConfigurationException, SAXException, IOException{
         boolean pageOpened = false;
         try {
+            DB.connectToDB();
+            DB.readDBTable();
             GooglePage.clickSearch(driver);
             GooglePage.verifySearch(driver);
             pageOpened = true;
